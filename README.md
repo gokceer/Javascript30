@@ -8,3 +8,4 @@ Participating in JavaScript30 course created by @wesbos
 
 1. [Javascript Drum Kit](https://github.com/gokceer/Javascript30/tree/main/01%20-%20JavaScript%20Drum%20Kit) - [DEMO](https://gokceer-js-drum-kit.herokuapp.com/)
 2. [CSS + JS Clock](https://github.com/gokceer/Javascript30/tree/main/02%20-%20JS%20and%20CSS%20Clock) - [DEMO](https://gokceer-js-clock.herokuapp.com/)
+3. [CSS Variables](https://github.com/gokceer/Javascript30/tree/main/03%20-%20CSS%20Variables) - [DEMO](https://gokceer-js-cssvariables.herokuapp.com/)
