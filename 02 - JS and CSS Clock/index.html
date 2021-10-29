@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+</head>
+<body>
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
+    <h2 style="color: white">Set Alarm</h2>
+    <div class="date-selector">
+      <!–– I know, I can do it with JQuery, but i really dont like it :/ ––>
+      <select class="hour-selector" name="hours" id="hours">
+        <option value="0">00</option>
+        <option value="1">01</option>
+        <option value="2">02</option>
+        <option value="3">03</option>
+        <option value="4">04</option>
+        <option value="5">05</option>
+        <option value="6">06</option>
+        <option value="7">07</option>
+        <option value="8">08</option>
+        <option value="9">09</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+      </select>
+      <p style="font-weight: 900; color: white;"> : </p>
+      <select class="min-selector" name="hours" id="hours">
+        <option value="0">00</option>
+        <option value="1">01</option>
+        <option value="2">02</option>
+        <option value="3">03</option>
+        <option value="4">04</option>
+        <option value="5">05</option>
+        <option value="6">06</option>
+        <option value="7">07</option>
+        <option value="8">08</option>
+        <option value="9">09</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+        <option value="29">29</option>
+        <option value="30">30</option>
+        <option value="31">31</option>
+        <option value="32">32</option>
+        <option value="33">33</option>
+        <option value="34">34</option>
+        <option value="35">35</option>
+        <option value="36">36</option>
+        <option value="37">37</option>
+        <option value="38">38</option>
+        <option value="39">39</option>
+        <option value="40">40</option>
+        <option value="41">41</option>
+        <option value="42">42</option>
+        <option value="43">43</option>
+        <option value="44">44</option>
+        <option value="45">45</option>
+        <option value="46">46</option>
+        <option value="47">47</option>
+        <option value="48">48</option>
+        <option value="49">49</option>
+        <option value="50">50</option>
+        <option value="51">51</option>
+        <option value="52">52</option>
+        <option value="53">53</option>
+        <option value="54">54</option>
+        <option value="55">55</option>
+        <option value="56">56</option>
+        <option value="57">57</option>
+        <option value="58">58</option>
+        <option value="59">59</option>
+      </select>
+    </div>
+    <button class="set-alarm">Set Alarm</button>
+    <button class="stop-alarm">Stop Alarm</button>
+    <h2 id="alarm-message" style="color: white"></h2>
+
+    <audio loop src="alarm.mp3"></audio>
+  <style>
+    html {
+      background: #018DED url(https://unsplash.it/1500/1000?image=881&blur=5);
+      background-size: cover;
+      font-family: 'helvetica neue';
+      text-align: center;
+      font-size: 10px;
+    }
+
+    body {
+      margin: 0;
+      font-size: 2rem;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    .clock {
+      width: 30rem;
+      height: 30rem;
+      border: 20px solid white;
+      border-radius: 50%;
+      margin: 50px auto;
+      position: relative;
+      padding: 2rem;
+      box-shadow:
+        0 0 0 4px rgba(0,0,0,0.1),
+        inset 0 0 0 3px #EFEFEF,
+        inset 0 0 10px black,
+        0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px); /* account for the height of the clock hands */
+    }
+
+    .hand {
+      width: 50%;
+      height: 6px;
+      background: black;
+      position: absolute;
+      top: 50%; 
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.5s;
+      transition-timing-function: cubic-bezier(1, -0.17, 0.58, 1);
+    }
+
+    .no-transition {
+      transition: none !important;
+    }
+
+    .date-selector {
+      display: flex;
+      align-items: center;
+    }
+
+    .hour-selector {
+      width: 10rem;
+      height: 5rem;
+      margin-right: 2rem;
+      border: 0.5rem;
+    }
+
+    .min-selector {
+      width: 10rem;
+      height: 5rem;
+      margin-left: 2rem;
+    }
+
+    .set-alarm {
+      width: 10rem;
+      height: 5rem;
+      margin: 2rem;
+      outline: none;
+      border: none;
+      display: block;
+      cursor: pointer;
+      color: white;
+      background: rgba(66, 177, 221, 0.7);
+    }
+
+    .set-alarm.deactive {
+      display: none;
+    }
+
+    .stop-alarm {
+      width: 10rem;
+      height: 5rem;
+      margin: 2rem;
+      outline: none;
+      border: none;
+      display: none;
+      cursor: pointer;
+      color: white;
+      background: rgba(221, 66, 79, 0.7);
+    }
+
+    .stop-alarm.active {
+      display: block;
+    }
+  </style>
+
+  <script>
+    const hourHand = document.querySelector('.hour-hand')
+    const minHand = document.querySelector('.min-hand')
+    const secondHand = document.querySelector('.second-hand')
+
+    const hourAlarm = document.querySelector('.hour-selector')
+    const minAlarm = document.querySelector('.min-selector')
+    const setAlarmButton = document.querySelector('.set-alarm')
+    const stopAlarmButton = document.querySelector('.stop-alarm')
+    const alarmSound = document.querySelector('audio')
+    const alarmMsg = document.getElementById('alarm-message')
+    let intervalHandler = null
+
+    const dateToDegree = (date, hourFlag = false) => {
+      if (hourFlag) {
+        return ((date / 12) * 360) + 90;
+      } else {
+        return ((date / 60) * 360) + 90;
+      }
+    }
+    
+
+    const setDate = () => {
+      const now = new Date();
+      const seconds = dateToDegree(now.getSeconds())
+      const minutes = dateToDegree(now.getMinutes())
+      const hours = dateToDegree(now.getHours(), true)
+
+      hourHand.style.transform = `rotate(${hours}deg)`
+      minHand.style.transform = `rotate(${minutes}deg)`
+      secondHand.style.transform = `rotate(${seconds}deg)`
+      if (seconds == 444) { 
+        secondHand.classList.add('no-transition')
+      } else if (seconds == 96) {
+        secondHand.classList.remove('no-transition')
+      }
+    }
+
+    const checkAlarm = (hourAlarm, minAlarm) => {
+      const now = new Date();
+      const minutes = now.getMinutes()
+      const hours = now.getHours()
+      let alarmPlayed = false
+
+      if(hourAlarm === hours && minAlarm === minutes && !alarmPlayed) {
+        setAlarmButton.classList.add('deactive')
+        stopAlarmButton.classList.add('active')
+        if(!alarmSound) return
+        alarmSound.play()
+        alarmMsg.innerHTML = `Time is ${hourAlarm}:${minAlarm}!`
+      }
+    }
+  
+    const getAlarmTime = () => {
+      const hourAlarmValue = parseInt(hourAlarm.value)
+      const minAlarmValue = parseInt(minAlarm.value)
+      if (intervalHandler === null) {
+        intervalHandler = setInterval(() => {
+          checkAlarm(hourAlarmValue, minAlarmValue)
+        }, 1000)
+      }
+      alarmMsg.innerHTML = `Your alarm is set to ${hourAlarmValue}:${minAlarmValue}`
+    }
+
+    const stopAlarm = () => {
+      if (intervalHandler !== null) {
+        clearInterval(intervalHandler);
+      }
+      alarmSound.pause()
+      alarmSound.currentTime = 0
+      alarmMsg.innerHTML = ""
+      setAlarmButton.classList.remove('deactive')
+      stopAlarmButton.classList.remove('active')
+    }
+
+    setAlarmButton.addEventListener('click', getAlarmTime)
+    stopAlarmButton.addEventListener('click', stopAlarm)
+    setInterval(setDate, 1000)
+  </script>
+</body>
+</html>
