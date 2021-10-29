@@ -14,7 +14,7 @@
     </div>
     <h2 style="color: white">Set Alarm</h2>
     <div class="date-selector">
-      <!–– I know, I can do it with JQuery, but i really dont like it :/ ––> .
+      <!–– I know, I can do it with JQuery, but i really dont like it :/ ––>
       <select class="hour-selector" name="hours" id="hours">
         <option value="0">00</option>
         <option value="1">01</option>
@@ -106,6 +106,10 @@
       </select>
     </div>
     <button class="set-alarm">Set Alarm</button>
+    <button class="stop-alarm">Stop Alarm</button>
+    <h2 id="alarm-message" style="color: white"></h2>
+
+    <audio loop src="alarm.mp3"></audio>
   <style>
     html {
       background: #018DED url(https://unsplash.it/1500/1000?image=881&blur=5);
@@ -159,6 +163,10 @@
       transition-timing-function: cubic-bezier(1, -0.17, 0.58, 1);
     }
 
+    .no-transition {
+      transition: none !important;
+    }
+
     .date-selector {
       display: flex;
       align-items: center;
@@ -183,9 +191,30 @@
       margin: 2rem;
       outline: none;
       border: none;
+      display: block;
       cursor: pointer;
       color: white;
       background: rgba(66, 177, 221, 0.7);
+    }
+
+    .set-alarm.deactive {
+      display: none;
+    }
+
+    .stop-alarm {
+      width: 10rem;
+      height: 5rem;
+      margin: 2rem;
+      outline: none;
+      border: none;
+      display: none;
+      cursor: pointer;
+      color: white;
+      background: rgba(221, 66, 79, 0.7);
+    }
+
+    .stop-alarm.active {
+      display: block;
     }
   </style>
 
@@ -193,6 +222,14 @@
     const hourHand = document.querySelector('.hour-hand')
     const minHand = document.querySelector('.min-hand')
     const secondHand = document.querySelector('.second-hand')
+
+    const hourAlarm = document.querySelector('.hour-selector')
+    const minAlarm = document.querySelector('.min-selector')
+    const setAlarmButton = document.querySelector('.set-alarm')
+    const stopAlarmButton = document.querySelector('.stop-alarm')
+    const alarmSound = document.querySelector('audio')
+    const alarmMsg = document.getElementById('alarm-message')
+    let intervalHandler = null
 
     const dateToDegree = (date, hourFlag = false) => {
       if (hourFlag) {
@@ -203,7 +240,7 @@
     }
     
 
-    const setDate = (params) => {
+    const setDate = () => {
       const now = new Date();
       const seconds = dateToDegree(now.getSeconds())
       const minutes = dateToDegree(now.getMinutes())
@@ -212,9 +249,53 @@
       hourHand.style.transform = `rotate(${hours}deg)`
       minHand.style.transform = `rotate(${minutes}deg)`
       secondHand.style.transform = `rotate(${seconds}deg)`
+      if (seconds == 444) { 
+        secondHand.classList.add('no-transition')
+      } else if (seconds == 96) {
+        secondHand.classList.remove('no-transition')
+      }
     }
-    
-    //setInterval(setDate, 1000)
+
+    const checkAlarm = (hourAlarm, minAlarm) => {
+      const now = new Date();
+      const minutes = now.getMinutes()
+      const hours = now.getHours()
+      let alarmPlayed = false
+
+      if(hourAlarm === hours && minAlarm === minutes && !alarmPlayed) {
+        setAlarmButton.classList.add('deactive')
+        stopAlarmButton.classList.add('active')
+        if(!alarmSound) return
+        alarmSound.play()
+        alarmMsg.innerHTML = `Time is ${hourAlarm}:${minAlarm}!`
+      }
+    }
+  
+    const getAlarmTime = () => {
+      const hourAlarmValue = parseInt(hourAlarm.value)
+      const minAlarmValue = parseInt(minAlarm.value)
+      if (intervalHandler === null) {
+        intervalHandler = setInterval(() => {
+          checkAlarm(hourAlarmValue, minAlarmValue)
+        }, 1000)
+      }
+      alarmMsg.innerHTML = `Your alarm is set to ${hourAlarmValue}:${minAlarmValue}`
+    }
+
+    const stopAlarm = () => {
+      if (intervalHandler !== null) {
+        clearInterval(intervalHandler);
+      }
+      alarmSound.pause()
+      alarmSound.currentTime = 0
+      alarmMsg.innerHTML = ""
+      setAlarmButton.classList.remove('deactive')
+      stopAlarmButton.classList.remove('active')
+    }
+
+    setAlarmButton.addEventListener('click', getAlarmTime)
+    stopAlarmButton.addEventListener('click', stopAlarm)
+    setInterval(setDate, 1000)
   </script>
 </body>
 </html>
