@@ -5,7 +5,37 @@
   <title>Array Cardio 💪</title>
 </head>
 <body>
-  <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <h1><em>JS Array Exercises</em> 💁</h1>
+  <h3>You can look at the console for outputs!</h3>
+
+  <p>Data we can work with: </p>
+  <script src="https://gist.github.com/gokceer/611785c01aa00db55dcf4dd9c52abdf7.js"></script>
+
+  <h2>filter()</h2>
+  <a href="https://www.w3schools.com/jsref/jsref_filter.asp">Definition at W3Schools.com</a>
+  <p>Ex1: Filter the list of inventors for those who were born in the 1500's</p>
+  <script src="https://gist.github.com/gokceer/fbbf6da3031841fb6e3af6be0da4ae8f.js"></script>
+
+  <h2>map()</h2>
+  <a href="https://www.w3schools.com/jsref/jsref_map.asp">Definition at W3Schools.com</a>
+  <p>Ex2: Give us an array of the inventors first and last names</p>
+  <script src="https://gist.github.com/gokceer/e7ecf6d590f88efe35b6903cbe1e6d49.js"></script>
+
+  <h2>sort()</h2>
+  <a href="https://www.w3schools.com/jsref/jsref_sort.asp">Definition at W3Schools.com</a>
+  <p>Ex3: Sort the inventors by birthdate, oldest to youngest</p>
+  <script src="https://gist.github.com/gokceer/417662dec86d64d9c6568fb0af5a2466.js"></script>
+  <p>Ex4: Sort the inventors by years lived</p>
+  <script src="https://gist.github.com/gokceer/a9a5fefa8f70376c1b9fa0054fc997d2.js"></script>
+  <p>Ex5: Sort the people array alphabetically by last name</p>
+  <script src="https://gist.github.com/gokceer/eebaf92c1ee839a55e6824696a62813a.js"></script>
+
+  <h2>reduce()</h2>
+  <a href="https://www.w3schools.com/jsref/jsref_reduce.asp">Definition at W3Schools.com</a>
+  <p>Ex6: How many years did all the inventors live all together?</p>
+  <script src="https://gist.github.com/gokceer/b60780ebc0388c3657727ee08cde7795.js"></script>
+  <p>Ex7: Sum up the instances of each of the data array</p>
+  <script src="https://gist.github.com/gokceer/3a530e794f49d2246388323fa17be032.js"></script>
   <script>
     // Get your shorts on - this is an array workout!
     // ## Array Cardio Day 1
@@ -38,26 +68,26 @@
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
     const fifteen = inventors.filter(inventor => inventor.year >= 1500 && inventor.year <= 1599)
-    console.table(fifteen)
+    console.table("Example 1: ", fifteen)
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
     const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`)
-    console.log(fullNames)
+    console.log("Example 2: ", fullNames)
   
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
     const ordered = inventors.sort((a, b) => a.year > b.year ? 1 : -1)
-    console.table(ordered)
+    console.table("Example 3: ", ordered)
   
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
     const totalYears = inventors.reduce((total, inventor) => total + (inventor.passed - inventor.year), 0)
-    console.log(totalYears)
+    console.log("Example 6: ", totalYears)
 
     // 5. Sort the inventors by years lived
     const oldest = inventors.sort((a, b) => (a.passed - a.year) < (b.passed - b.year) ? 1 : -1)
-    console.table(oldest)
+    console.table("Example 4: ", oldest)
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -72,7 +102,7 @@
       const [bLast, bFirst] = nextItem.split(', ')
       return aLast > bLast ? 1 : -1
     })
-    console.log(alpha)
+    console.log("Example 5: ", alpha)
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
@@ -85,7 +115,7 @@
       obj[item]++
       return obj
     }, {})
-    console.log(transportation)
+    console.log("Example 7: ", transportation)
   </script>
 </body>
 </html>
