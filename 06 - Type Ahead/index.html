@@ -8,47 +8,74 @@
 <body>
 
   <form class="search-form">
-    <input type="text" class="search" placeholder="City or State">
+    <input type="text" class="endpoint" placeholder="Endpoint">
+    <input type="text" class="search" id="search1" placeholder="Search in specific key">
+    <input type="text" class="search" id="search2" placeholder="Search">
     <ul class="suggestions">
-      <li>Filter for a city</li>
-      <li>or a state</li>
     </ul>
   </form>
+  <h1 class="error"></h1>
 <script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+// const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
-const searchInput = document.querySelector('.search')
+const endpointInput = document.querySelector('.endpoint')
+const keyInput = document.querySelector('#search1')
+const searchInput = document.querySelector('#search2')
 const suggestions = document.querySelector('.suggestions')
+const errorText = document.querySelector('.error')
 
-const cities = []
+const dataArr = []
+let key = ""
 
-fetch(endpoint)
-  .then(blob => blob.json())
-  .then(data => cities.push(...data))
+const fetchData = (e) => {
+  fetch(e.target.value)
+    .then(response => {
+      if(response.ok) {
+        return response.json()
+      } else {
+        throw new Error('Something went wrong');
+      }
+    })
+    .then(data => {
+      dataArr.push(...data)
+      keyInput.classList.add('active')
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
 
-const findMatches = (wordToMatch, cities) => {
-  return cities.filter(place => {
+const setKey = (e) => {
+  key = e.target.value
+  searchInput.classList.add('active')
+}
+
+const findMatches = (wordToMatch, dataArr) => {
+  return dataArr.filter(obj => {
     const regex = new RegExp(wordToMatch, 'gi')
-    return place.city.match(regex) || place.state.match(regex)
+    if (key && obj.hasOwnProperty(key)) {
+      return obj[key].toString().match(regex)
+    }
+    return false
   })
 }
 
 const displayMatches = (e) => {
-  const matchArray = findMatches(e.target.value, cities)
-  const html = matchArray.map(place => {
+  const matchArray = findMatches(e.target.value, dataArr)
+  const html = matchArray.map(matchItem => {
     const regex = new RegExp(e.target.value, 'gi')
-    const cityName = place.city.replace(regex, `<span class="hl">${e.target.value}</span>`)
-    const stateName = place.state.replace(regex, `<span class="hl">${e.target.value}</span>`)
+    const result = key ? matchItem[key].toString().replace(regex, `<span class="hl">${e.target.value}</span>`) : matchItem.toString().replace(regex, `<span class="hl">${e.target.value}</span>`)
     return `
       <li>
-        <span class="name">${cityName}, ${stateName}</span>
-        <span class="population">${place.population}</span>
+        <span class="name">${result}</span>
       </li>
     `
   }).join('')
   suggestions.innerHTML = html
 }
 
+endpointInput.addEventListener('change', fetchData)
+keyInput.addEventListener('change', setKey)
 searchInput.addEventListener('change', displayMatches)
 searchInput.addEventListener('keyup', displayMatches)
 
