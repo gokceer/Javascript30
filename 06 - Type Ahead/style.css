@@ -1,12 +1,14 @@
 html {
   box-sizing: border-box;
   background: #ffc600;
-  font-family: 'helvetica neue';
+  font-family: "helvetica neue";
   font-size: 20px;
   font-weight: 200;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -20,11 +22,27 @@ input {
   margin: 50px auto;
 }
 
+input.endpoint {
+  margin: 0;
+  text-align: center;
+  outline: 0;
+  border: 10px solid #f7f7f7;
+  width: 200%;
+  left: -50%;
+  position: relative;
+  top: 10px;
+  z-index: 2;
+  border-radius: 5px;
+  font-size: 40px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.19);
+  margin-bottom: 10px;
+}
+
 input.search {
   margin: 0;
   text-align: center;
   outline: 0;
-  border: 10px solid #F7F7F7;
+  border: 10px solid #f7f7f7;
   width: 120%;
   left: -10%;
   position: relative;
@@ -33,6 +51,19 @@ input.search {
   border-radius: 5px;
   font-size: 40px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.19);
+  display: none;
+}
+
+#search1 {
+  margin-bottom: 5px;
+}
+
+#search1.active {
+  display: block;
+}
+
+#search2.active {
+  display: block;
 }
 
 .suggestions {
@@ -45,7 +76,7 @@ input.search {
 .suggestions li {
   background: white;
   list-style: none;
-  border-bottom: 1px solid #D8D8D8;
+  border-bottom: 1px solid #d8d8d8;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.14);
   margin: 0;
   padding: 20px;
@@ -57,12 +88,12 @@ input.search {
 
 .suggestions li:nth-child(even) {
   transform: perspective(100px) rotateX(3deg) translateY(2px) scale(1.001);
-  background: linear-gradient(to bottom,  #ffffff 0%,#EFEFEF 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #efefef 100%);
 }
 
 .suggestions li:nth-child(odd) {
   transform: perspective(100px) rotateX(-3deg) translateY(3px);
-  background: linear-gradient(to top,  #ffffff 0%,#EFEFEF 100%);
+  background: linear-gradient(to top, #ffffff 0%, #efefef 100%);
 }
 
 span.population {
