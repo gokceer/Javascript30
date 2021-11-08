@@ -10,3 +10,5 @@ Participating in JavaScript30 course created by @wesbos
 2. [CSS + JS Clock](https://github.com/gokceer/Javascript30/tree/main/02%20-%20JS%20and%20CSS%20Clock) - [DEMO](https://gokceer-js-clock.herokuapp.com/)
 3. [CSS Variables](https://github.com/gokceer/Javascript30/tree/main/03%20-%20CSS%20Variables) - [DEMO](https://gokceer-js-cssvariables.herokuapp.com/)
 4. [Array Cardio Day1](https://github.com/gokceer/Javascript30/tree/main/04%20-%20Array%20Cardio%20Day%201) - [DEMO](https://gokceer-js-arraycardioday1.herokuapp.com/)
+5. [Flex Panel Gallery](https://github.com/gokceer/Javascript30/tree/main/05%20-%20Flex%20Panel%20Gallery)
+6. [Type Ahead](https://github.com/gokceer/Javascript30/tree/main/06%20-%20Type%20Ahead) - [DEMO](https://gokceer-js-searchahead.herokuapp.com/)
