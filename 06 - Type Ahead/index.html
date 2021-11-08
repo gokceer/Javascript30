@@ -27,13 +27,22 @@ const errorText = document.querySelector('.error')
 const dataArr = []
 let key = ""
 
+const errorMsgCheck = () => {
+  if (errorText.classList.contains('active')) {
+    errorText.classList.remove('active')
+  }
+}
+
+
 const fetchData = (e) => {
+  errorMsgCheck()
   fetch(e.target.value)
     .then(response => {
       if(response.ok) {
         return response.json()
       } else {
-        throw new Error('Something went wrong');
+        errorText.innerHTML = `Error: ${response.status}. Please check the URL`
+        errorText.classList.add('active')
       }
     })
     .then(data => {
@@ -41,12 +50,18 @@ const fetchData = (e) => {
       keyInput.classList.add('active')
     })
     .catch(err => {
-      console.log(err)
+      errorText.innerHTML = 'Error occured, please check the URL'
+      errorText.classList.add('active')
     })
 }
 
 const setKey = (e) => {
   key = e.target.value
+  if (!key) {
+    errorMsgCheck()
+    suggestions.innerHTML = ""
+    return
+  }
   searchInput.classList.add('active')
 }
 
@@ -61,7 +76,14 @@ const findMatches = (wordToMatch, dataArr) => {
 }
 
 const displayMatches = (e) => {
+  errorMsgCheck()
   const matchArray = findMatches(e.target.value, dataArr)
+  if (matchArray.length === 0 && key) {
+    suggestions.innerHTML = ""
+    errorText.innerHTML = 'No results found'
+    errorText.classList.add('active')
+    return
+  }
   const html = matchArray.map(matchItem => {
     const regex = new RegExp(e.target.value, 'gi')
     const result = key ? matchItem[key].toString().replace(regex, `<span class="hl">${e.target.value}</span>`) : matchItem.toString().replace(regex, `<span class="hl">${e.target.value}</span>`)
@@ -76,6 +98,7 @@ const displayMatches = (e) => {
 
 endpointInput.addEventListener('change', fetchData)
 keyInput.addEventListener('change', setKey)
+keyInput.addEventListener('keyup', setKey)
 searchInput.addEventListener('change', displayMatches)
 searchInput.addEventListener('keyup', displayMatches)
 

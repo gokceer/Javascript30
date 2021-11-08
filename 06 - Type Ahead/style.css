@@ -103,3 +103,12 @@ span.population {
 .hl {
   background: #ffc600;
 }
+
+.error {
+  text-align: center;
+  display: none;
+}
+
+.error.active {
+  display: block;
+}
