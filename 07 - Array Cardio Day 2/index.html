@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array Cardio 💪💪</title>
+</head>
+<body>
+  <h1><em>JS Array Exercises 2</em> 💁</h1>
+  <h3>You can look at the console for outputs!</h3>
+
+  <p>Data we can work with: </p>
+  <script src="https://gist.github.com/gokceer/78d5c0f2e2ea73577a5693d61b96e601.js"></script>
+
+  <h2>some()</h2>
+  <a href="https://www.w3schools.com/jsref/jsref_some.asp">Definition at W3Schools.com</a>
+  <p>Ex1: Is at least one person 19 or older?</p>
+  <script src="https://gist.github.com/gokceer/951076c0af36613c2a048f0391eae2d0.js"></script>
+
+  <h2>every()</h2>
+  <a href="https://www.w3schools.com/jsref/jsref_every.asp">Definition at W3Schools.com</a>
+  <p>Ex2: Is everyone 19 or older?</p>
+  <script src="https://gist.github.com/gokceer/21d03da5b86fdaefbf61c4cc0bc85725.js"></script>
+
+  <h2>find()</h2>
+  <a href="https://www.w3schools.com/jsref/jsref_find.asp">Definition at W3Schools.com</a>
+  <p>Ex3: Find the comment with the ID of 823423</p>
+  <script src="https://gist.github.com/gokceer/1fa1409aaf9ff1eec31efcbe4fce7aa2.js"></script>
+
+  <h2>findIndex()</h2>
+  <a href="https://www.w3schools.com/jsref/jsref_find.asp">Definition at W3Schools.com</a>
+  <p>Ex4: Find and delete the comment with the ID of 823423</p>
+  <script src="https://gist.github.com/gokceer/5de590f7ced161bb4759b9c2d485a84d.js"></script>
+
+  <script>
+    // ## Array Cardio Day 2
+
+    const people = [
+      { name: 'Wes', year: 1988 },
+      { name: 'Kait', year: 1986 },
+      { name: 'Irv', year: 1970 },
+      { name: 'Lux', year: 2015 }
+    ];
+
+    const comments = [
+      { text: 'Love this!', id: 523423 },
+      { text: 'Super good', id: 823423 },
+      { text: 'You are the best', id: 2039842 },
+      { text: 'Ramen is my fav food ever', id: 123523 },
+      { text: 'Nice Nice Nice!', id: 542328 }
+    ];
+
+    // Some and Every Checks
+    // Array.prototype.some() // is at least one person 19 or older?
+    const isAdult = people.some(person => (new Date()).getFullYear() - person.year >= 19)
+
+    console.log("Example1: ", isAdult)
+  
+    // Array.prototype.every() // is everyone 19 or older?
+    const allAdults = people.every(person => (new Date()).getFullYear() - person.year >= 19)
+
+    console.log("Example2: ", allAdults)
+
+    // Array.prototype.find()
+    // Find is like filter, but instead returns just the one you are looking for
+    // find the comment with the ID of 823423
+    const comment = comments.find(comment => comment.id === 823423)
+
+    console.log("Example3: ", comments)
+
+    // Array.prototype.findIndex()
+    // Find the comment with this ID
+    // delete the comment with the ID of 823423
+    const index = comments.findIndex(comment => comment.id === 823423)
+    comments.splice(index, 1)
+
+    console.log("Example4: ", comments)
+  </script>
+</body>
+</html>
