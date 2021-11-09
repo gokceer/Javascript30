@@ -12,3 +12,4 @@ Participating in JavaScript30 course created by @wesbos
 4. [Array Cardio Day1](https://github.com/gokceer/Javascript30/tree/main/04%20-%20Array%20Cardio%20Day%201) - [DEMO](https://gokceer-js-arraycardioday1.herokuapp.com/)
 5. [Flex Panel Gallery](https://github.com/gokceer/Javascript30/tree/main/05%20-%20Flex%20Panel%20Gallery)
 6. [Type Ahead](https://github.com/gokceer/Javascript30/tree/main/06%20-%20Type%20Ahead) - [DEMO](https://gokceer-js-searchahead.herokuapp.com/)
+7. [Array Cardio Day2](https://github.com/gokceer/Javascript30/tree/main/07%20-%20Array%20Cardio%20Day%202)
