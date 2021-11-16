@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hold Shift to Check Multiple Checkboxes</title>
+</head>
+<body>
+  <style>
+    html {
+      font-family: sans-serif;
+      background: #ffc600;
+    }
+
+    .inboxes {
+      display: flex;
+      flex: 1;
+      justify-content:space-between;
+      width: 100%;
+    }
+
+    .inbox {
+      min-width: 400px;
+      max-width: 600px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #F1F1F1;
+    }
+
+    .item:last-child {
+      border-bottom: 0;
+    }
+
+    input:checked + p {
+      background: #F9F9F9;
+      text-decoration: line-through;
+    }
+
+    input[type="checkbox"] {
+      margin: 20px;
+    }
+
+    p {
+      margin: 0;
+      padding: 20px;
+      transition: background 0.2s;
+      flex: 1;
+      font-family:'helvetica neue';
+      font-size: 20px;
+      font-weight: 200;
+      border-left: 1px solid #D1E2FF;
+    }
+
+    .title {
+      text-align: center;
+    }
+
+    .input_item {
+      margin: 0;
+      border-style: solid;
+      border-width: 1px;
+      width: 75%;
+      padding: 10px;
+      float: left;
+      font-size: 16px;
+    }
+
+    .addBtn {
+      padding: 10px;
+      width: 25%;
+      background: #d9d9d9;
+      color: #555;
+      float: left;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      border-radius: 0;
+    }
+
+    .addBtn:hover {
+      background-color: #bbb;
+    }
+
+    .input_div {
+      display: flex;
+    }
+
+    .close {
+      padding: 20px
+    }
+
+    .close:hover {
+      background-color: #f44336;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+  <div class="inbox" id="div1">
+    <p class="title">TO-DO</p>
+    <div class="input_div">
+      <input class="input_item" type="text" id="myInput" placeholder="Title...">
+      <span onclick="newElement()" class="addBtn">Add</span>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Write todo list!</p>
+      <span class="close">x</span>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Check Me</p>
+      <span class="close">x</span>
+    </div>
+  </div>
+<script>
+  let checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]')
+  const items = document.querySelectorAll('.inbox .item')
+  const todo = document.querySelector('.inbox')
+  const inputVal = document.getElementById("myInput")
+  const closeBtns = document.querySelectorAll(".close")
+
+  let lastChecked
+
+  const handleCheck = (e) => {
+    let inBetween = false
+
+    if (e.shiftKey && e.target.checked) {
+      checkboxes.forEach(checkbox => {
+        if (checkbox === e.target || checkbox === lastChecked) {
+          inBetween = !inBetween
+        }
+
+        if(inBetween) {
+          checkbox.checked = true
+        }
+      })
+    }
+    lastChecked = e.target
+  }
+
+  const handleClose = (e) => {
+    let div = e.target.parentElement
+    todo.removeChild(div)
+  }
+  
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('click', handleCheck)
+  })
+
+  closeBtns.forEach(btn => {
+    btn.addEventListener('click', handleClose)
+  })
+
+  const createHtml = (input) => {
+    let p = document.createElement("p")
+    let t = document.createTextNode(input)
+    p.appendChild(t)
+    
+    let div = document.createElement("div")
+    div.className = "item" 
+    div.innerHTML = `<input type="checkbox" onclick="handleCheck(event)">`
+    div.appendChild(p)
+    div.appendChild(createCloseSpan())
+    return div
+  }
+
+  const createCloseSpan = () => {
+    let span = document.createElement("span")
+    let x = document.createTextNode("x")
+    span.appendChild(x)
+    span.className = "close"
+    span.addEventListener('click', handleClose)
+    return span
+  }
+
+  const newElement = () => {
+    let resultDiv = createHtml(inputVal.value)
+    if (inputVal.value === '') {
+      alert("You must write something!");
+    } else {
+      todo.appendChild(resultDiv);
+      checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]')
+    }
+    inputVal.value = "";
+  }
+  
+</script>
+</body>
+</html>
